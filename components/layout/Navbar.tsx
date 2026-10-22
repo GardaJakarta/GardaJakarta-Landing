@@ -65,7 +65,7 @@ export default function Navbar() {
             <Link
               key={link.href}
               href={link.href}
-              className={`relative text-base font-bold transition-colors duration-300
+              className={`relative text-base font-semibold transition-colors duration-300
                 after:absolute after:-bottom-3 after:left-1/2 after:h-0.5 after:w-0
                 after:-translate-x-1/2 after:rounded-full after:bg-primary
                 after:transition-all after:duration-300 after:ease-out

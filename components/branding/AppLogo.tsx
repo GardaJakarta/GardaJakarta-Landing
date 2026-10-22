@@ -1,4 +1,3 @@
-
 import type { SVGProps } from "react";
 
 type AppLogoProps = Omit<SVGProps<SVGSVGElement>, "width" | "height"> & {
