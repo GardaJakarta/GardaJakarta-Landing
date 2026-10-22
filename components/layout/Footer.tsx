@@ -36,8 +36,8 @@ export default function Footer() {
                 aria-label="Garda Jakarta - Beranda"
                 className="inline-flex"
               >
-                <AppLogo size={152} className="mr-10" />
-                <TagLine width={140} />
+                <AppLogo size={140} className="mr-10" />
+                <TagLine width={120} />
               </Link>
             </div>
 
@@ -87,31 +87,10 @@ export default function Footer() {
             </a>
           </div>
         </div>
-
-        {/* Disclaimer */}
-        {/* <div className="mt-14 rounded-xl border border-gray-200 bg-gray-50 px-5 py-4">
-          <div className="flex items-start gap-3">
-            <MapPin
-              size={20}
-              weight="duotone"
-              className="mt-0.5 shrink-0 text-primary"
-            />
-
-            <p className="text-xs leading-6 text-gray-500">
-              <span className="font-semibold text-gray-700">
-                Informasi Keamanan:
-              </span>{" "}
-              Informasi dan peta kerawanan disajikan sebagai referensi
-              kewaspadaan berdasarkan data yang tersedia. Informasi ini tidak
-              menjamin kondisi keamanan suatu wilayah dan tidak menggantikan
-              informasi resmi dari pihak berwenang.
-            </p>
-          </div>
-        </div> */}
       </div>
 
       {/* Bottom Bar */}
-      <div className="bg-black/80">
+      <div className="bg-dark-gray">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-6 py-6 sm:flex-row sm:items-center sm:justify-between lg:px-8">
           <p className="text-xs text-white">
             © {currentYear} Garda Jakarta. Hak cipta dilindungi.
