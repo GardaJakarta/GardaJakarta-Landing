@@ -37,11 +37,11 @@ export default function Footer() {
                 className="inline-flex"
               >
                 <AppLogo size={140} className="mr-10" />
-                <TagLine width={120} />
+                <TagLine width={132} />
               </Link>
             </div>
 
-            <p className="mt-8 max-w-sm text-base leading-7 text-gray-500">
+            <p className="mt-8 max-w-sm text-base leading-7 text-foreground">
               Bersama mewujudkan Jakarta yang lebih aman melalui informasi
               keamanan berbasis lokasi dan partisipasi masyarakat.
             </p>
