@@ -26,8 +26,16 @@ const principles = [
 
 export default function AboutUs() {
   return (
-    <section id="about-us" className="bg-white px-6 py-20 md:px-12 md:py-24">
-      <div className="mx-auto max-w-7xl">
+    <section
+      id="about-us"
+      className="relative overflow-hidden bg-white px-6 pt-20 md:px-12 md:pt-24"
+    >
+      {/* Background abu-abu full-width */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 top-[45%] bg-light-gray"
+      />
+      <div className="relative mx-auto max-w-7xl">
         {/* Headline & Description */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
           <h2 className="text-left text-3xl font-medium leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
@@ -69,7 +77,7 @@ export default function AboutUs() {
         </div>
 
         {/* Three Principles */}
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-0 md:mt-20">
+        <div className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-0 md:mt-20">
           {principles.map((principle, index) => {
             const Icon = principle.icon;
 
@@ -97,6 +105,9 @@ export default function AboutUs() {
             );
           })}
         </div>
+
+        {/* Padding bawah section */}
+        <div className="h-16 md:h-20" />
       </div>
     </section>
   );

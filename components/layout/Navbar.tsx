@@ -42,7 +42,9 @@ export default function Navbar() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className={`fixed top-0 z-50 w-full transition-all duration-300  ${
-        isDefaultMode ? " bg-white shadow-sm" : "bg-transparent "
+        isDefaultMode
+          ? " bg-white border-b border-light-gray"
+          : "bg-transparent "
       }`}
       style={
         !isDefaultMode

@@ -23,7 +23,7 @@ export default function Hero() {
       />
 
       {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/10" />
 
       {/* Bottom Gradient */}
       <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/20 to-transparent" />

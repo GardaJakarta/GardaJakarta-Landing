@@ -2,14 +2,7 @@
 
 import Link from "next/link";
 import AppLogo from "../branding/AppLogo";
-import {
-  ArrowUpRight,
-  MapPin,
-  EnvelopeSimple,
-  InstagramLogo,
-  LinkedinLogo,
-  ArrowUp,
-} from "@phosphor-icons/react";
+import { EnvelopeSimple } from "@phosphor-icons/react";
 import TagLine from "../branding/TagLine";
 
 const navigation = [
@@ -58,7 +51,7 @@ export default function Footer() {
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-gray-500 transition-colors hover:text-foreground hover:font-medium hover:underline"
+                    className="text-sm text-gray-500 transition-colors hover:text-primary hover:font-semibold hover:underline"
                   >
                     {item.label}
                   </Link>
