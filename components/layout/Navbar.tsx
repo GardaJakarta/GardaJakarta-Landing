@@ -22,6 +22,8 @@ export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
   const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
+  const [isSignOutOpen, setIsSignOutOpen] = useState(false);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +53,19 @@ export default function Navbar() {
   }, []);
 
   const isDefaultMode = isScrolled || isHovered || isOpen;
+
+  const handleSignOut = async () => {
+    setIsSigningOut(true);
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.gardajakarta.my.id";
+      await fetch(`${apiUrl}/api/auth/sign-out`, { method: "POST", credentials: "include" });
+      setSessionUser(null);
+      setIsSignOutOpen(false);
+      setIsAccountOpen(false);
+    } finally {
+      setIsSigningOut(false);
+    }
+  };
 
   return (
     <header
@@ -103,10 +118,10 @@ export default function Navbar() {
                 onClick={() => setIsAccountOpen((open) => !open)}
                 aria-expanded={isAccountOpen}
                 aria-label={`Buka menu akun ${sessionUser.name}`}
-                className={`flex items-center gap-2 rounded-2xl border-[1.5px] border-primary px-3 py-2 font-semibold transition-colors hover:bg-primary hover:text-white ${isDefaultMode ? "text-foreground" : "text-white"}`}
+                className={`flex items-center gap-2 rounded-full px-1.5 py-1.5 font-semibold transition-colors hover:bg-black/5 ${isDefaultMode ? "text-foreground" : "text-white"}`}
               >
-                <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-sm text-white">
-                  {sessionUser.image ? <img className="h-8 w-8 rounded-full object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} /> : sessionUser.name.slice(0, 1).toUpperCase()}
+                <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-sm text-white shadow-sm">
+                  {sessionUser.image ? <img className="h-9 w-9 rounded-full object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} referrerPolicy="no-referrer" /> : sessionUser.name.slice(0, 1).toUpperCase()}
                 </span>
                 <span className="hidden max-w-28 truncate sm:inline">
                   {sessionUser.name}
@@ -117,6 +132,7 @@ export default function Navbar() {
                   <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
                   {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
                   <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
+                  <button type="button" onClick={() => { setIsAccountOpen(false); setIsSignOutOpen(true); }} className="mt-1 block w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-red-600 transition-colors hover:bg-red-50">Keluar</button>
                 </div>
               )}
             </div>
@@ -203,6 +219,20 @@ export default function Navbar() {
               </Link>
             ))}
           </div>
+        </div>
+      )}
+
+      {isSignOutOpen && (
+        <div className="fixed inset-0 z-[60] grid place-items-center bg-black/35 px-6 backdrop-blur-sm" role="presentation">
+          <section className="w-full max-w-sm bg-white p-7 shadow-2xl" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
+            <span className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary text-xl text-white" aria-hidden="true">↪</span>
+            <h2 id="landing-signout-title" className="text-2xl font-extrabold tracking-tight text-foreground">Keluar dari akun?</h2>
+            <p className="mt-2 text-sm leading-6 text-gray-500">Session di perangkat ini akan ditutup.</p>
+            <div className="mt-6 flex justify-end gap-2">
+              <button type="button" onClick={() => setIsSignOutOpen(false)} className="border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
+              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
+            </div>
+          </section>
         </div>
       )}
     </header>
