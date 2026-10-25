@@ -21,6 +21,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -93,23 +94,26 @@ export default function Navbar() {
 
         <div className="flex items-center gap-4">
           {sessionUser ? (
-            <div className={`flex items-center gap-3 ${isDefaultMode ? "text-foreground" : "text-white"}`}>
-              <a
-                href="https://app.gardajakarta.my.id/report"
-                className="hidden rounded-2xl bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-red-700 sm:inline-flex"
-              >
-                Buat Laporan
-              </a>
-              <a
-                href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`}
-                className="group flex items-center gap-2 rounded-2xl border-[1.5px] border-primary px-3 py-2 font-semibold transition-colors hover:bg-primary hover:text-white"
-                title={`Akun ${sessionUser.name}`}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setIsAccountOpen((open) => !open)}
+                aria-expanded={isAccountOpen}
+                aria-label={`Buka menu akun ${sessionUser.name}`}
+                className={`flex items-center gap-2 rounded-2xl border-[1.5px] border-primary px-3 py-2 font-semibold transition-colors hover:bg-primary hover:text-white ${isDefaultMode ? "text-foreground" : "text-white"}`}
               >
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-sm text-white">
                   {sessionUser.name.slice(0, 1).toUpperCase()}
                 </span>
                 <span className="hidden max-w-28 truncate sm:inline">{sessionUser.name}</span>
-              </a>
+              </button>
+              {isAccountOpen && (
+                <div className="absolute right-0 top-[calc(100%+0.75rem)] z-50 min-w-52 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
+                  {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/report" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
+                  <a href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`} className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Portal {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
+                </div>
+              )}
             </div>
           ) : <>
           <a
