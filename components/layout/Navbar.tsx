@@ -9,11 +9,11 @@ import { ArrowRight, User } from "@phosphor-icons/react";
 type SessionUser = { name: string; email: string; role: "warga" | "polisi" | "admin" };
 
 const navLinks = [
-  { label: "Beranda", href: "/" },
-  { label: "Peta Interaktif", href: "/maps" },
-  { label: "Tentang Kami", href: "/about" },
-  { label: "Cara Kerja", href: "/how-it-works" },
-  { label: "Bantuan", href: "/help" },
+  { label: "Beranda", href: "#hero" },
+  { label: "Peta Interaktif", href: "https://app.gardajakarta.my.id/map" },
+  { label: "Tentang Kami", href: "#about-us" },
+  { label: "Cara Kerja", href: "#how-it-works" },
+  { label: "Bantuan", href: "#help" },
 ];
 
 export default function Navbar() {
