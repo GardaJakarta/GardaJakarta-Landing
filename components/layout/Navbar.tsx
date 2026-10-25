@@ -85,10 +85,10 @@ export default function Navbar() {
           : undefined
       }
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo */}
         <Link href="/" aria-label="Beranda" className="shrink-0">
-          {isDefaultMode ? <AppLogo size={125} /> : <AppLogoWhite size={125} />}
+          {isDefaultMode ? <AppLogo size={125} className="w-[104px] sm:w-[125px]" /> : <AppLogoWhite size={125} className="w-[104px] sm:w-[125px]" />}
         </Link>
 
         {/* Desktop Navigation */}
@@ -110,7 +110,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden items-center gap-4 md:flex">
           {sessionUser ? (
             <div className="relative">
               <button
@@ -140,7 +140,7 @@ export default function Navbar() {
             <>
               <a
                 href="https://app.gardajakarta.my.id/admin/login"
-                className={`group rounded-2xl border-[1.5px] bg-transparent py-2 pl-4 pr-6 font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
+                className={`group rounded-xl border-[1.5px] bg-transparent px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
                   isDefaultMode
                     ? "border-primary text-primary"
                     : "border-white text-white"
@@ -157,7 +157,7 @@ export default function Navbar() {
 
               <a
                 href="https://app.gardajakarta.my.id/login"
-                className="rounded-2xl bg-primary py-2 pl-6 pr-4 font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
+                className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
               >
                 <div className="flex items-center justify-center gap-2">
                   Buat Laporan
@@ -174,7 +174,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
           aria-expanded={isOpen}
-          className={`flex h-10 w-10 items-center justify-center rounded-xl transition-colors hover:bg-gray-100 md:hidden ${
+          className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-gray-100 md:hidden ${
             isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
           }`}
         >
@@ -184,7 +184,7 @@ export default function Navbar() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              className="h-6 w-6"
+              className="h-5 w-5"
               aria-hidden="true"
             >
               <path d="M18 6 6 18M6 6l12 12" />
@@ -195,7 +195,7 @@ export default function Navbar() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              className="h-6 w-6"
+              className="h-5 w-5"
               aria-hidden="true"
             >
               <path d="M4 7h16M4 12h16M4 17h16" />
@@ -206,18 +206,53 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-t border-gray-100 bg-white px-6 py-3 md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-1">
+        <div className="border-t border-gray-100 bg-white px-4 py-2.5 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-xl px-4 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
+                className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
               >
                 {link.label}
               </Link>
             ))}
+            {sessionUser ? (
+              <>
+                <a
+                  href="https://app.gardajakarta.my.id/dashboard"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-1 rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
+                >
+                  Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}
+                </a>
+                <button
+                  type="button"
+                  onClick={() => { setIsOpen(false); setIsSignOutOpen(true); }}
+                  className="rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
+                >
+                  Keluar
+                </button>
+              </>
+            ) : (
+              <>
+                <a
+                  href="https://app.gardajakarta.my.id/admin/login"
+                  onClick={() => setIsOpen(false)}
+                  className="mt-1 rounded-lg border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                >
+                  Portal Admin
+                </a>
+                <a
+                  href="https://app.gardajakarta.my.id/login"
+                  onClick={() => setIsOpen(false)}
+                  className="rounded-xl bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
+                >
+                  Buat laporan
+                </a>
+              </>
+            )}
           </div>
         </div>
       )}
