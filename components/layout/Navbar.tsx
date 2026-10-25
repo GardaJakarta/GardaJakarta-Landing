@@ -6,6 +6,8 @@ import AppLogo from "../branding/AppLogo";
 import AppLogoWhite from "../branding/AppLogoWhite";
 import { ArrowRight, User } from "@phosphor-icons/react";
 
+type SessionUser = { name: string; email: string; role: "warga" | "polisi" | "admin" };
+
 const navLinks = [
   { label: "Beranda", href: "/" },
   { label: "Peta Interaktif", href: "/maps" },
@@ -18,6 +20,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [sessionUser, setSessionUser] = useState<SessionUser | null>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +36,14 @@ export default function Navbar() {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
+  }, []);
+
+  useEffect(() => {
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.gardajakarta.my.id";
+    fetch(`${apiUrl}/api/me`, { credentials: "include" })
+      .then((response) => response.ok ? response.json() : null)
+      .then((payload: { data?: SessionUser } | null) => setSessionUser(payload?.data ?? null))
+      .catch(() => setSessionUser(null));
   }, []);
 
   const isDefaultMode = isScrolled || isHovered || isOpen;
@@ -80,8 +91,29 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="flex gap-4">
-          <button
+        <div className="flex items-center gap-4">
+          {sessionUser ? (
+            <div className={`flex items-center gap-3 ${isDefaultMode ? "text-foreground" : "text-white"}`}>
+              <a
+                href="https://app.gardajakarta.my.id/report"
+                className="hidden rounded-2xl bg-primary px-4 py-2 font-semibold text-white transition-colors hover:bg-red-700 sm:inline-flex"
+              >
+                Buat Laporan
+              </a>
+              <a
+                href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`}
+                className="group flex items-center gap-2 rounded-2xl border-[1.5px] border-primary px-3 py-2 font-semibold transition-colors hover:bg-primary hover:text-white"
+                title={`Akun ${sessionUser.name}`}
+              >
+                <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-sm text-white">
+                  {sessionUser.name.slice(0, 1).toUpperCase()}
+                </span>
+                <span className="hidden max-w-28 truncate sm:inline">{sessionUser.name}</span>
+              </a>
+            </div>
+          ) : <>
+          <a
+            href="https://app.gardajakarta.my.id/admin/login"
             className={`group rounded-2xl border-[1.5px] bg-transparent py-2 pl-4 pr-6 font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
               isDefaultMode
                 ? "border-primary text-primary"
@@ -95,14 +127,14 @@ export default function Navbar() {
               />
               Portal Admin
             </div>
-          </button>
+          </a>
 
-          <button className="rounded-2xl bg-primary py-2 pl-6 pr-4 font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer">
+          <a href="https://app.gardajakarta.my.id/login" className="rounded-2xl bg-primary py-2 pl-6 pr-4 font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer">
             <div className="flex items-center justify-center gap-2">
               Buat Laporan
               <ArrowRight className="text-white" size={20} weight="bold" />
             </div>
-          </button>
+          </a></>}
         </div>
 
         {/* Mobile Menu Button */}
