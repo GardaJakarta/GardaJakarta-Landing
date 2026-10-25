@@ -1,39 +1,60 @@
 import Link from "next/link";
-import { ArrowLeft, Compass } from "@phosphor-icons/react/dist/ssr";
-import AppLogoWhite from "@/components/branding/AppLogoWhite";
+import Image from "next/image";
+import AppLogo from "@/components/branding/AppLogo";
 
 export default function NotFound() {
   return (
-    <main className="flex min-h-screen items-stretch bg-foreground px-6 py-8 text-white md:px-12 md:py-12 lg:px-24">
-      <section className="mx-auto flex w-full max-w-7xl flex-col">
-        <Link href="/" aria-label="Kembali ke beranda" className="inline-flex w-fit">
-          <AppLogoWhite size={145} />
-        </Link>
+    <main className="relative flex min-h-screen items-center overflow-hidden bg-white px-8 py-10 md:px-16 lg:px-24">
+      {/* Logo: Kiri Atas */}
+      <Link
+        href="/"
+        aria-label="Kembali ke beranda"
+        className="absolute left-8 top-8 z-10 inline-flex md:left-16 md:top-10 lg:left-24"
+      >
+        <AppLogo size={155} />
+      </Link>
 
-        <div className="my-auto max-w-5xl py-24">
-          <div aria-hidden="true" className="mb-6 h-1 w-16 bg-primary" />
-          <p className="mb-4 text-xs font-extrabold uppercase tracking-[0.18em] text-primary">
-            Halaman tidak ditemukan
-          </p>
-          <p className="mb-4 text-[clamp(5rem,18vw,13rem)] font-black leading-[0.7] tracking-[-0.12em] text-primary">
+      {/* Konten Utama */}
+      <section className="relative z-10 mx-auto w-full max-w-7xl ml-24">
+        <div className="flex max-w-2xl flex-col items-start">
+          {/* Error Code */}
+          <p className="text-8xl font-bold leading-none tracking-tight text-primary md:text-[8rem]">
             404
           </p>
-          <h1 className="max-w-4xl text-5xl font-medium leading-[0.95] tracking-[-0.07em] sm:text-6xl lg:text-8xl">
-            Rute ini belum ada di <span className="text-primary">peta.</span>
+
+          {/* Title */}
+          <h1 className="mt-6 text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl md:text-4xl">
+            Halaman tidak ditemukan.
           </h1>
-          <p className="mt-7 max-w-xl text-base leading-8 text-white/65 md:text-lg">
-            Alamat yang Anda buka mungkin sudah dipindahkan atau belum tersedia.
+
+          {/* Description */}
+          <p className="mt-5 max-w-lg text-base leading-7 text-foreground/65 md:text-lg md:leading-8">
+            Maaf, halaman yang Anda cari tidak tersedia atau mungkin telah
+            dipindahkan. Periksa kembali alamatnya atau kembali ke halaman utama
+            Garda Jakarta.
           </p>
-          <div className="mt-9 flex flex-wrap items-center gap-5">
-            <Link href="https://app.gardajakarta.my.id/login" className="inline-flex items-center gap-2 rounded-2xl bg-primary px-5 py-3 font-semibold text-white transition-colors hover:bg-red-700">
-              <Compass size={19} /> Buka portal
-            </Link>
-            <Link href="/" className="inline-flex items-center gap-2 font-semibold text-white/80 transition-colors hover:text-white">
-              <ArrowLeft size={18} /> Kembali ke beranda
-            </Link>
-          </div>
+
+          {/* Action */}
+          <Link
+            href="/"
+            className="mt-8 inline-flex items-center justify-center rounded-lg bg-primary px-7 py-3.5 text-base font-semibold text-white transition-colors hover:bg-red-700"
+          >
+            Kembali ke Beranda
+          </Link>
         </div>
       </section>
+
+      {/* Ilustrasi: Kanan Bawah */}
+      <div className="pointer-events-none absolute bottom-0 right-0 hidden w-[42%] max-w-[600px] sm:block md:w-[45%]">
+        <Image
+          src="/images/not_found_illust.svg"
+          alt="Ilustrasi halaman tidak ditemukan"
+          width={600}
+          height={450}
+          priority
+          className="h-auto w-full object-contain object-bottom"
+        />
+      </div>
     </main>
   );
 }

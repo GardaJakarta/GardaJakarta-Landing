@@ -41,17 +41,17 @@ export default function AboutUs() {
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
           <Reveal>
             <h2 className="text-left text-3xl font-medium leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
-            Membangun Jakarta yang Lebih Aman.{" "}
-            <span className="font-bold">
-              Smart City,{" "}
-              <span className="relative inline-block">
-                Safe City.
-                <span
-                  aria-hidden="true"
-                  className="absolute -bottom-2 left-0 h-2 w-full bg-primary/90"
-                />
+              Membangun Jakarta yang Lebih Aman.{" "}
+              <span className="font-bold">
+                Smart City,{" "}
+                <span className="relative inline-block">
+                  Safe City.
+                  <span
+                    aria-hidden="true"
+                    className="absolute -bottom-2 left-0 h-2 w-full bg-primary/90"
+                  />
+                </span>
               </span>
-            </span>
             </h2>
           </Reveal>
 

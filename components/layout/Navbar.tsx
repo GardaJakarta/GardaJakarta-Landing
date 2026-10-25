@@ -6,7 +6,11 @@ import AppLogo from "../branding/AppLogo";
 import AppLogoWhite from "../branding/AppLogoWhite";
 import { ArrowRight, User } from "@phosphor-icons/react";
 
-type SessionUser = { name: string; email: string; role: "warga" | "polisi" | "admin" };
+type SessionUser = {
+  name: string;
+  email: string;
+  role: "warga" | "polisi" | "admin";
+};
 
 const navLinks = [
   { label: "Beranda", href: "#hero" },
@@ -40,10 +44,13 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || "https://api.gardajakarta.my.id";
+    const apiUrl =
+      process.env.NEXT_PUBLIC_API_URL || "https://api.gardajakarta.my.id";
     fetch(`${apiUrl}/api/me`, { credentials: "include" })
-      .then((response) => response.ok ? response.json() : null)
-      .then((payload: { data?: SessionUser } | null) => setSessionUser(payload?.data ?? null))
+      .then((response) => (response.ok ? response.json() : null))
+      .then((payload: { data?: SessionUser } | null) =>
+        setSessionUser(payload?.data ?? null),
+      )
       .catch(() => setSessionUser(null));
   }, []);
 
@@ -105,40 +112,67 @@ export default function Navbar() {
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-sm text-white">
                   {sessionUser.name.slice(0, 1).toUpperCase()}
                 </span>
-                <span className="hidden max-w-28 truncate sm:inline">{sessionUser.name}</span>
+                <span className="hidden max-w-28 truncate sm:inline">
+                  {sessionUser.name}
+                </span>
               </button>
               {isAccountOpen && (
                 <div className="absolute right-0 top-[calc(100%+0.75rem)] z-50 min-w-52 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
-                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
-                  {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/report" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
-                  <a href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`} className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Portal {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Akun aktif
+                  </p>
+                  {sessionUser.role === "warga" && (
+                    <a
+                      href="https://app.gardajakarta.my.id/report"
+                      className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary"
+                    >
+                      Buat Laporan
+                    </a>
+                  )}
+                  <a
+                    href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`}
+                    className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary"
+                  >
+                    Portal{" "}
+                    {sessionUser.role === "warga"
+                      ? "Warga"
+                      : sessionUser.role === "polisi"
+                        ? "Polisi"
+                        : "Admin"}
+                  </a>
                 </div>
               )}
             </div>
-          ) : <>
-          <a
-            href="https://app.gardajakarta.my.id/admin/login"
-            className={`group rounded-2xl border-[1.5px] bg-transparent py-2 pl-4 pr-6 font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
-              isDefaultMode
-                ? "border-primary text-primary"
-                : "border-white text-white"
-            }`}
-          >
-            <div className="flex items-center justify-center gap-2">
-              <User
-                className="text-current transition-colors duration-300"
-                size={20}
-              />
-              Portal Admin
-            </div>
-          </a>
+          ) : (
+            <>
+              <a
+                href="https://app.gardajakarta.my.id/admin/login"
+                className={`group rounded-2xl border-[1.5px] bg-transparent py-2 pl-4 pr-6 font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
+                  isDefaultMode
+                    ? "border-primary text-primary"
+                    : "border-white text-white"
+                }`}
+              >
+                <div className="flex items-center justify-center gap-2">
+                  <User
+                    className="text-current transition-colors duration-300"
+                    size={20}
+                  />
+                  Portal Admin
+                </div>
+              </a>
 
-          <a href="https://app.gardajakarta.my.id/login" className="rounded-2xl bg-primary py-2 pl-6 pr-4 font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer">
-            <div className="flex items-center justify-center gap-2">
-              Buat Laporan
-              <ArrowRight className="text-white" size={20} weight="bold" />
-            </div>
-          </a></>}
+              <a
+                href="https://app.gardajakarta.my.id/login"
+                className="rounded-2xl bg-primary py-2 pl-6 pr-4 font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
+              >
+                <div className="flex items-center justify-center gap-2">
+                  Buat Laporan
+                  <ArrowRight className="text-white" size={20} weight="bold" />
+                </div>
+              </a>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
