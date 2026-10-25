@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Reveal from "@/components/motion/Reveal";
 
 export default function Help() {
   return (
@@ -20,7 +21,7 @@ export default function Help() {
       <div className="absolute inset-0 bg-linear-to-r from-black/65 via-black/15 to-black/0" />
 
       <div className="relative mx-auto max-w-7xl">
-        <div className="max-w-xl bg-white p-6 shadow-lg sm:p-8 md:p-10 rounded-2xl">
+        <Reveal className="max-w-xl rounded-2xl bg-white p-6 shadow-lg sm:p-8 md:p-10">
           <h2 className="mt-3 text-3xl font-medium leading-13 text-foreground md:text-4xl">
             Ada Pertanyaan?
             <br />
@@ -96,7 +97,7 @@ export default function Help() {
               Kirim Pesan
             </button>
           </form>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { Plus, Minus } from "@phosphor-icons/react";
+import { motion } from "framer-motion";
+import Reveal from "@/components/motion/Reveal";
 
 const steps = [
   {
@@ -49,7 +51,7 @@ export default function HowItWorks() {
     >
       <div className="mx-auto max-w-7xl">
         {/* Centered Heading */}
-        <div className="mx-auto mb-14 max-w-4xl text-center md:mb-16">
+        <Reveal className="mx-auto mb-14 max-w-4xl text-center md:mb-16">
           <h2 className="mt-4 text-3xl font-medium leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
             Jakarta Lebih Aman,{" "}
             <span className="font-bold">Dimulai dari Kita.</span>
@@ -59,15 +61,18 @@ export default function HowItWorks() {
             Pantau situasi, bagikan informasi, dan ikut membangun lingkungan
             yang lebih aman bersama Garda Jakarta.
           </p>
-        </div>
+        </Reveal>
 
         {/* Illustration & Interactive Steps */}
         <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-2 md:gap-16 lg:gap-24">
           {/* Left: Illustration */}
           <div className="flex min-h-[320px] items-center justify-center md:min-h-[480px]">
-            <div
+            <motion.div
               key={currentStep.image}
-              className="w-full max-w-md animate-[stepFade_450ms_ease-in-out]"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, ease: "easeOut" }}
+              className="w-full max-w-md"
             >
               <Image
                 src={currentStep.image}
@@ -77,7 +82,7 @@ export default function HowItWorks() {
                 className="h-auto max-h-[400px] w-full object-contain"
                 priority={activeStep === 0}
               />
-            </div>
+            </motion.div>
           </div>
 
           {/* Right: Steps Accordion */}
@@ -86,8 +91,12 @@ export default function HowItWorks() {
               const isActive = activeStep === index;
 
               return (
-                <div
+                <motion.div
                   key={step.number}
+                  initial={{ opacity: 0, x: 18 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.45, delay: index * 0.06 }}
                   className="border-b border-foreground/10 first:border-t"
                 >
                   <button
@@ -160,7 +169,7 @@ export default function HowItWorks() {
                       </p>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

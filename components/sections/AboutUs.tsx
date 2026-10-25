@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { MapPinArea, UsersThree, ShieldCheck } from "@phosphor-icons/react";
+import Reveal from "@/components/motion/Reveal";
 
 const principles = [
   {
@@ -38,7 +39,8 @@ export default function AboutUs() {
       <div className="relative mx-auto max-w-7xl">
         {/* Headline & Description */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-16">
-          <h2 className="text-left text-3xl font-medium leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
+          <Reveal>
+            <h2 className="text-left text-3xl font-medium leading-tight tracking-tight text-foreground md:text-4xl lg:text-5xl">
             Membangun Jakarta yang Lebih Aman.{" "}
             <span className="font-bold">
               Smart City,{" "}
@@ -50,9 +52,10 @@ export default function AboutUs() {
                 />
               </span>
             </span>
-          </h2>
+            </h2>
+          </Reveal>
 
-          <div className="flex items-center">
+          <Reveal className="flex items-center" delay={0.1}>
             <p className="text-base leading-8 text-foreground/75 md:text-lg">
               Garda Jakarta adalah platform informasi keamanan perkotaan yang
               membantu masyarakat mengenali situasi di sekitarnya. Garda Jakarta
@@ -60,11 +63,11 @@ export default function AboutUs() {
               partisipasi bersama untuk mewujudkan lingkungan Jakarta yang lebih
               aman dan nyaman.
             </p>
-          </div>
+          </Reveal>
         </div>
 
         {/* Jakarta Image */}
-        <div className="mt-12 md:mt-16">
+        <Reveal className="mt-12 md:mt-16" delay={0.08}>
           <div className="relative aspect-16/5 w-full overflow-hidden rounded-2xl">
             <Image
               src="/images/image-jakarta.jpg"
@@ -74,7 +77,7 @@ export default function AboutUs() {
               priority
             />
           </div>
-        </div>
+        </Reveal>
 
         {/* Three Principles */}
         <div className="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-3 sm:gap-0 md:mt-20">
@@ -82,8 +85,9 @@ export default function AboutUs() {
             const Icon = principle.icon;
 
             return (
-              <div
+              <Reveal
                 key={principle.title}
+                delay={index * 0.08}
                 className={`flex flex-col items-center py-2 sm:px-6 md:px-10 ${
                   index < principles.length - 1
                     ? "sm:border-r sm:border-foreground/15"
@@ -101,7 +105,7 @@ export default function AboutUs() {
                 <p className="mt-2 max-w-sm text-base leading-7 text-foreground/65 text-center">
                   {principle.subtitle}
                 </p>
-              </div>
+              </Reveal>
             );
           })}
         </div>
