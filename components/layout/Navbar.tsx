@@ -6,11 +6,7 @@ import AppLogo from "../branding/AppLogo";
 import AppLogoWhite from "../branding/AppLogoWhite";
 import { ArrowRight, User } from "@phosphor-icons/react";
 
-type SessionUser = {
-  name: string;
-  email: string;
-  role: "warga" | "polisi" | "admin";
-};
+type SessionUser = { name: string; email: string; image?: string | null; role: "warga" | "polisi" | "admin" };
 
 const navLinks = [
   { label: "Beranda", href: "#hero" },
@@ -110,7 +106,7 @@ export default function Navbar() {
                 className={`flex items-center gap-2 rounded-2xl border-[1.5px] border-primary px-3 py-2 font-semibold transition-colors hover:bg-primary hover:text-white ${isDefaultMode ? "text-foreground" : "text-white"}`}
               >
                 <span className="grid h-8 w-8 place-items-center rounded-full bg-primary text-sm text-white">
-                  {sessionUser.name.slice(0, 1).toUpperCase()}
+                  {sessionUser.image ? <img className="h-8 w-8 rounded-full object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} /> : sessionUser.name.slice(0, 1).toUpperCase()}
                 </span>
                 <span className="hidden max-w-28 truncate sm:inline">
                   {sessionUser.name}
@@ -118,28 +114,9 @@ export default function Navbar() {
               </button>
               {isAccountOpen && (
                 <div className="absolute right-0 top-[calc(100%+0.75rem)] z-50 min-w-52 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
-                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                    Akun aktif
-                  </p>
-                  {sessionUser.role === "warga" && (
-                    <a
-                      href="https://app.gardajakarta.my.id/report"
-                      className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary"
-                    >
-                      Buat Laporan
-                    </a>
-                  )}
-                  <a
-                    href={`https://app.gardajakarta.my.id/${sessionUser.role === "admin" ? "admin" : sessionUser.role === "polisi" ? "polisi" : "map"}`}
-                    className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary"
-                  >
-                    Portal{" "}
-                    {sessionUser.role === "warga"
-                      ? "Warga"
-                      : sessionUser.role === "polisi"
-                        ? "Polisi"
-                        : "Admin"}
-                  </a>
+                  <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
+                  {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
+                  <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
                 </div>
               )}
             </div>
