@@ -85,10 +85,10 @@ export default function Navbar() {
           : undefined
       }
     >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
+      <nav className="mx-auto flex min-h-12 max-w-7xl items-center justify-between px-3 py-1 sm:min-h-0 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo */}
         <Link href="/" aria-label="Beranda" className="shrink-0">
-          {isDefaultMode ? <AppLogo size={125} className="w-[104px] sm:w-[125px]" /> : <AppLogoWhite size={125} className="w-[104px] sm:w-[125px]" />}
+          {isDefaultMode ? <AppLogo size={125} className="h-7 w-auto sm:h-10" /> : <AppLogoWhite size={125} className="h-7 w-auto sm:h-10" />}
         </Link>
 
         {/* Desktop Navigation */}
@@ -140,7 +140,7 @@ export default function Navbar() {
             <>
               <a
                 href="https://app.gardajakarta.my.id/admin/login"
-                className={`group rounded-xl border-[1.5px] bg-transparent px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
+                className={`group rounded-md border-[1.5px] bg-transparent px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
                   isDefaultMode
                     ? "border-primary text-primary"
                     : "border-white text-white"
@@ -157,7 +157,7 @@ export default function Navbar() {
 
               <a
                 href="https://app.gardajakarta.my.id/login"
-                className="rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
+                className="rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
               >
                 <div className="flex items-center justify-center gap-2">
                   Buat Laporan
@@ -174,7 +174,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
           aria-expanded={isOpen}
-          className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-gray-100 md:hidden ${
+          className={`flex h-8 w-8 items-center justify-center rounded-lg transition-colors hover:bg-gray-100 md:hidden ${
             isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
           }`}
         >
@@ -240,14 +240,14 @@ export default function Navbar() {
                 <a
                   href="https://app.gardajakarta.my.id/admin/login"
                   onClick={() => setIsOpen(false)}
-                  className="mt-1 rounded-lg border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                  className="mt-1 rounded-md border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
                 >
                   Portal Admin
                 </a>
                 <a
                   href="https://app.gardajakarta.my.id/login"
                   onClick={() => setIsOpen(false)}
-                  className="rounded-xl bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
+                  className="rounded-md bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
                 >
                   Buat laporan
                 </a>
@@ -264,8 +264,8 @@ export default function Navbar() {
             <h2 id="landing-signout-title" className="text-2xl font-extrabold tracking-tight text-foreground">Keluar dari akun?</h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">Session di perangkat ini akan ditutup.</p>
             <div className="mt-6 flex justify-end gap-2">
-              <button type="button" onClick={() => setIsSignOutOpen(false)} className="border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
-              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
+              <button type="button" onClick={() => setIsSignOutOpen(false)} className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
+              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
             </div>
           </section>
         </div>
