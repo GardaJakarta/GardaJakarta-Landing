@@ -140,7 +140,7 @@ export default function Navbar() {
             <>
               <a
                 href="https://app.gardajakarta.my.id/admin/login"
-                className={`group rounded-lg border-[1.5px] bg-transparent px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
+                className={`group rounded-full border-[1.5px] bg-transparent px-4 py-2 text-sm font-semibold transition-colors duration-300 hover:bg-primary hover:text-white cursor-pointer ${
                   isDefaultMode
                     ? "border-primary text-primary"
                     : "border-white text-white"
@@ -157,7 +157,7 @@ export default function Navbar() {
 
               <a
                 href="https://app.gardajakarta.my.id/login"
-                className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
+                className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 cursor-pointer"
               >
                 <div className="flex items-center justify-center gap-2">
                   Buat Laporan
@@ -174,7 +174,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
           aria-expanded={isOpen}
-          className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors hover:bg-gray-100 md:hidden ${
+          className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors hover:bg-gray-100 md:hidden ${
             isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
           }`}
         >
@@ -240,14 +240,14 @@ export default function Navbar() {
                 <a
                   href="https://app.gardajakarta.my.id/admin/login"
                   onClick={() => setIsOpen(false)}
-                  className="mt-1 rounded-lg border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                  className="mt-1 rounded-full border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
                 >
                   Portal Admin
                 </a>
                 <a
                   href="https://app.gardajakarta.my.id/login"
                   onClick={() => setIsOpen(false)}
-                  className="rounded-lg bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
+                  className="rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
                 >
                   Buat laporan
                 </a>
