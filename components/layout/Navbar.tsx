@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AppLogo from "../branding/AppLogo";
 import AppLogoWhite from "../branding/AppLogoWhite";
-import { ArrowRight, User } from "@phosphor-icons/react";
+import { ArrowRight, SignOut, User } from "@phosphor-icons/react";
 
 type SessionUser = { name: string; email: string; image?: string | null; role: "warga" | "polisi" | "admin" };
 
@@ -24,10 +24,12 @@ export default function Navbar() {
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const accountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
+      setIsAccountOpen(false);
     };
 
     handleScroll();
@@ -40,6 +42,17 @@ export default function Navbar() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isAccountOpen) return;
+    const closeOnOutsidePress = (event: PointerEvent) => {
+      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
+        setIsAccountOpen(false);
+      }
+    };
+    document.addEventListener("pointerdown", closeOnOutsidePress);
+    return () => document.removeEventListener("pointerdown", closeOnOutsidePress);
+  }, [isAccountOpen]);
 
   useEffect(() => {
     const apiUrl =
@@ -112,7 +125,7 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-4 md:flex">
           {sessionUser ? (
-            <div className="relative">
+            <div ref={accountRef} className="relative">
               <button
                 type="button"
                 onClick={() => setIsAccountOpen((open) => !open)}
@@ -259,8 +272,8 @@ export default function Navbar() {
 
       {isSignOutOpen && (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black/35 px-6 backdrop-blur-sm" role="presentation">
-          <section className="w-full max-w-sm bg-white p-7 shadow-2xl" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
-            <span className="mb-4 grid h-10 w-10 place-items-center rounded-xl bg-primary text-xl text-white" aria-hidden="true">↪</span>
+          <section className="w-full max-w-sm rounded-2xl bg-white p-7 shadow-2xl ring-1 ring-black/5" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
+            <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-red-50 text-primary" aria-hidden="true"><SignOut size={24} weight="bold" /></span>
             <h2 id="landing-signout-title" className="text-2xl font-extrabold tracking-tight text-foreground">Keluar dari akun?</h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">Session di perangkat ini akan ditutup.</p>
             <div className="mt-6 flex justify-end gap-2">
