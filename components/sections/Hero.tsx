@@ -52,7 +52,7 @@ export default function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
-        className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full border border-white/10 bg-black/30 px-3 py-2 text-[11px] font-regular text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-black/50 sm:bottom-8 sm:gap-2 sm:px-5 sm:py-3 sm:text-base cursor-pointer"
+        className="absolute bottom-5 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 whitespace-nowrap rounded-full border border-white/10 bg-black/30 px-3 py-2 text-[10px] font-regular leading-none text-white backdrop-blur-sm transition-all duration-300 hover:border-white/40 hover:bg-black/50 sm:bottom-8 sm:gap-2 sm:px-5 sm:py-3 sm:text-base cursor-pointer"
       >
         Pelajari Selengkapnya
         <CaretDoubleDown size={16} />
