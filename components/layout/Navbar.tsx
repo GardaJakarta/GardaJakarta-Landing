@@ -31,6 +31,7 @@ export default function Navbar() {
   const [isSignOutOpen, setIsSignOutOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const accountRef = useRef<HTMLDivElement>(null);
+  const mobileAccountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +53,7 @@ export default function Navbar() {
   useEffect(() => {
     if (!isAccountOpen) return;
     const closeOnOutsidePress = (event: PointerEvent) => {
-      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
+      if (accountRef.current && !accountRef.current.contains(event.target as Node) && !mobileAccountRef.current?.contains(event.target as Node)) {
         setIsAccountOpen(false);
       }
     };
@@ -188,15 +189,28 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu Button */}
-        <button
-          type="button"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
-          aria-expanded={isOpen}
-          className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-gray-100 md:hidden ${
-            isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
-          }`}
-        >
+        <div className="flex items-center gap-1 md:hidden">
+          {sessionUser && <div ref={mobileAccountRef} className="relative">
+            <button type="button" onClick={() => setIsAccountOpen((open) => !open)} aria-expanded={isAccountOpen} aria-label={`Buka menu akun ${sessionUser.name}`} className="grid h-10 w-10 place-items-center rounded-full p-0.5 transition-colors hover:bg-black/5">
+              <span className="grid h-8 w-8 place-items-center overflow-hidden rounded-full bg-primary text-xs font-bold text-white shadow-sm">
+                {sessionUser.image ? <Image className="h-8 w-8 object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} width={32} height={32} unoptimized /> : sessionUser.name.slice(0, 1).toUpperCase()}
+              </span>
+            </button>
+            {isAccountOpen && <div className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-56 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
+              <p className="border-b border-gray-100 px-3 py-2 text-xs font-semibold"><span className="block truncate">{sessionUser.name}</span><span className="mt-1 block truncate font-normal text-gray-400">{sessionUser.email}</span></p>
+              <a href="https://app.gardajakarta.my.id/dashboard" onClick={() => setIsAccountOpen(false)} className="mt-1 block rounded-xl px-3 py-2.5 text-sm font-semibold hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
+              <button type="button" onClick={() => { setIsAccountOpen(false); setIsOpen(false); setIsSignOutOpen(true); }} className="mt-1 block w-full rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white hover:bg-red-700">Keluar</button>
+            </div>}
+          </div>}
+          <button
+            type="button"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
+            aria-expanded={isOpen}
+            className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-gray-100 ${
+              isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
+            }`}
+          >
           {isOpen ? (
             <svg
               viewBox="0 0 24 24"
@@ -220,7 +234,8 @@ export default function Navbar() {
               <path d="M4 7h16M4 12h16M4 17h16" />
             </svg>
           )}
-        </button>
+          </button>
+        </div>
       </nav>
 
       {/* Mobile Navigation */}
