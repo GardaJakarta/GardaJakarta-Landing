@@ -10,12 +10,17 @@ import { ArrowRight, SignOut, User } from "@phosphor-icons/react";
 type SessionUser = { name: string; email: string; image?: string | null; role: "warga" | "polisi" | "admin" };
 
 const navLinks = [
-  { label: "Beranda", href: "#hero" },
-  { label: "Peta Interaktif", href: "https://app.gardajakarta.my.id/map" },
-  { label: "Tentang Kami", href: "#about-us" },
-  { label: "Cara Kerja", href: "#how-it-works" },
-  { label: "Bantuan", href: "#help" },
+  { label: "Beranda", href: "#hero", icon: "home" },
+  { label: "Peta Interaktif", href: "https://app.gardajakarta.my.id/map", icon: "map" },
+  { label: "Tentang Kami", href: "#about-us", icon: "info" },
+  { label: "Cara Kerja", href: "#how-it-works", icon: "steps" },
+  { label: "Bantuan", href: "#help", icon: "help" },
 ];
+
+function MobileNavIcon({ kind }: { kind: string }) {
+  const path = kind === "home" ? <><path d="m4 10 8-6 8 6" /><path d="M6.5 9.5V20h11V9.5M10 20v-5h4v5" /></> : kind === "map" ? <><path d="m4 6 5-2 6 2 5-2v14l-5 2-6-2-5 2V6Z" /><path d="M9 4v14M15 6v14" /></> : kind === "info" ? <><circle cx="12" cy="12" r="8.5" /><path d="M12 11v5M12 8h.01" /></> : kind === "steps" ? <><path d="M5 6h14M5 12h10M5 18h6" /><path d="m16 16 2 2 3-4" /></> : <><circle cx="12" cy="12" r="8.5" /><path d="M9.5 9a2.6 2.6 0 1 1 4.2 2c-1.2.9-1.7 1.3-1.7 2.5M12 16h.01" /></>;
+  return <svg className="h-[18px] w-[18px] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{path}</svg>;
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -99,10 +104,10 @@ export default function Navbar() {
           : undefined
       }
     >
-      <nav className="mx-auto flex min-h-10 max-w-7xl items-center justify-between px-3 py-0 sm:min-h-0 sm:px-6 sm:py-4 lg:px-8">
+      <nav className="mx-auto flex min-h-16 max-w-7xl items-center justify-between px-3 py-0 sm:min-h-0 sm:px-6 sm:py-4 lg:px-8">
         {/* Logo */}
         <Link href="/" aria-label="Beranda" className="shrink-0">
-          {isDefaultMode ? <AppLogo size={125} className="h-5 w-auto sm:h-10" /> : <AppLogoWhite size={125} className="h-5 w-auto sm:h-10" />}
+          {isDefaultMode ? <AppLogo size={162} className="h-[26px] w-auto sm:h-10" /> : <AppLogoWhite size={162} className="h-[26px] w-auto sm:h-10" />}
         </Link>
 
         {/* Desktop Navigation */}
@@ -146,7 +151,7 @@ export default function Navbar() {
                   <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
                   {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
                   <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
-                  <button type="button" onClick={() => { setIsAccountOpen(false); setIsSignOutOpen(true); }} className="mt-1 block w-full rounded-xl px-3 py-2 text-left text-sm font-semibold text-red-600 transition-colors hover:bg-red-50">Keluar</button>
+                  <button type="button" onClick={() => { setIsAccountOpen(false); setIsSignOutOpen(true); }} className="mt-2 block w-full rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700">Keluar</button>
                 </div>
               )}
             </div>
@@ -188,7 +193,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(!isOpen)}
           aria-label={isOpen ? "Tutup menu navigasi" : "Buka menu navigasi"}
           aria-expanded={isOpen}
-          className={`flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-gray-100 md:hidden ${
+          className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-gray-100 md:hidden ${
             isDefaultMode ? "text-gray-700" : "text-white hover:bg-white/10"
           }`}
         >
@@ -198,7 +203,7 @@ export default function Navbar() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              className="h-4 w-4"
+              className="h-5 w-5"
               aria-hidden="true"
             >
               <path d="M18 6 6 18M6 6l12 12" />
@@ -209,7 +214,7 @@ export default function Navbar() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              className="h-4 w-4"
+              className="h-5 w-5"
               aria-hidden="true"
             >
               <path d="M4 7h16M4 12h16M4 17h16" />
@@ -220,15 +225,16 @@ export default function Navbar() {
 
       {/* Mobile Navigation */}
       {isOpen && (
-        <div className="border-t border-gray-100 bg-white px-4 py-2.5 md:hidden">
-          <div className="mx-auto flex max-w-7xl flex-col gap-0.5">
+        <div className="border-t border-gray-100 bg-white px-4 py-5 md:hidden">
+          <div className="mx-auto flex max-w-7xl flex-col gap-1.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
+                className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
               >
+                <MobileNavIcon kind={link.icon} />
                 {link.label}
               </Link>
             ))}
@@ -237,15 +243,17 @@ export default function Navbar() {
                 <a
                   href="https://app.gardajakarta.my.id/dashboard"
                   onClick={() => setIsOpen(false)}
-                  className="mt-1 rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
+                  className="mt-1 flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"
                 >
+                  <MobileNavIcon kind="home" />
                   Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}
                 </a>
                 <button
                   type="button"
                   onClick={() => { setIsOpen(false); setIsSignOutOpen(true); }}
-                  className="rounded-lg px-3 py-2.5 text-left text-sm font-semibold text-red-600 transition-colors hover:bg-red-50"
+                  className="my-2 flex items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
                 >
+                  <SignOut size={18} weight="bold" />
                   Keluar
                 </button>
               </>
@@ -254,15 +262,17 @@ export default function Navbar() {
                 <a
                   href="https://app.gardajakarta.my.id/admin/login"
                   onClick={() => setIsOpen(false)}
-                  className="mt-1 rounded-full border border-primary px-4 py-2.5 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
+                  className="mt-2 flex items-center justify-center gap-2 rounded-full border border-primary px-4 py-3 text-center text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-white"
                 >
+                  <User size={18} weight="bold" />
                   Portal Admin
                 </a>
                 <a
                   href="https://app.gardajakarta.my.id/login"
                   onClick={() => setIsOpen(false)}
-                  className="rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
+                  className="flex items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700"
                 >
+                  <ArrowRight size={18} weight="bold" />
                   Buat laporan
                 </a>
               </>
