@@ -149,7 +149,7 @@ export default function Navbar() {
               {isAccountOpen && (
                 <div className="absolute right-0 top-[calc(100%+0.75rem)] z-50 min-w-52 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
                   <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
-                  {sessionUser.role === "warga" && <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Buat Laporan</a>}
+                  <a href="https://app.gardajakarta.my.id/profile" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Profile</a>
                   <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
                   <button type="button" onClick={() => { setIsAccountOpen(false); setIsSignOutOpen(true); }} className="mt-2 block w-full rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700">Keluar</button>
                 </div>
@@ -248,6 +248,7 @@ export default function Navbar() {
                   </span>
                   <span className="min-w-0"><strong className="block truncate text-sm font-bold text-gray-900">{sessionUser.name}</strong><small className="mt-0.5 block truncate text-xs text-gray-400">{sessionUser.email}</small></span>
                 </div>
+                <a href="https://app.gardajakarta.my.id/profile" onClick={() => setIsOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-gray-700 hover:bg-orange-50">Profile</a>
                 <a
                   href="https://app.gardajakarta.my.id/dashboard"
                   onClick={() => setIsOpen(false)}
@@ -291,13 +292,12 @@ export default function Navbar() {
 
       {isSignOutOpen && (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black/35 px-6 backdrop-blur-sm" role="presentation">
-          <section className="w-full max-w-sm rounded-3xl bg-white p-7 shadow-2xl ring-1 ring-black/5" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
-            <span className="mb-5 grid h-16 w-16 place-items-center rounded-3xl bg-[#fff1ef] text-primary" aria-hidden="true"><SignOut size={30} weight="bold" /></span>
-            <h2 id="landing-signout-title" className="text-2xl font-extrabold tracking-tight text-foreground">Keluar dari akun?</h2>
-            <p className="mt-2 text-sm leading-6 text-gray-500">Session di perangkat ini akan ditutup.</p>
+          <section className="w-full max-w-sm rounded-xl bg-white p-6 shadow-2xl" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
+            <h2 id="landing-signout-title" className="text-xl font-bold tracking-tight text-foreground">Keluar dari akun?</h2>
+            <p className="mt-2 text-xs leading-relaxed text-gray-500">Sesi di perangkat ini akan ditutup.</p>
             <div className="mt-6 flex justify-end gap-2">
-              <button type="button" onClick={() => setIsSignOutOpen(false)} className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
-              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
+              <button type="button" onClick={() => setIsSignOutOpen(false)} className="rounded-lg px-4 py-2.5 text-xs font-bold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
+              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="rounded-lg bg-primary px-4 py-2.5 text-xs font-bold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
             </div>
           </section>
         </div>
