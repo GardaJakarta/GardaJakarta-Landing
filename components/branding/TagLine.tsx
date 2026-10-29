@@ -1,10 +1,8 @@
 export default function TagLine({
   width = 146,
-  height = 47,
   className,
 }: {
   width?: number;
-  height?: number;
   className?: string;
 }) {
   return (

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import AppLogo from "../branding/AppLogo";
 import AppLogoWhite from "../branding/AppLogoWhite";
 import { ArrowRight, SignOut, User } from "@phosphor-icons/react";
@@ -134,7 +135,7 @@ export default function Navbar() {
                 className={`flex items-center gap-2 rounded-full px-1.5 py-1.5 font-semibold transition-colors hover:bg-black/5 ${isDefaultMode ? "text-foreground" : "text-white"}`}
               >
                 <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-sm text-white shadow-sm">
-                  {sessionUser.image ? <img className="h-9 w-9 rounded-full object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} referrerPolicy="no-referrer" /> : sessionUser.name.slice(0, 1).toUpperCase()}
+                  {sessionUser.image ? <Image className="h-9 w-9 rounded-full object-cover" src={sessionUser.image} alt={`Foto profil ${sessionUser.name}`} width={36} height={36} unoptimized /> : sessionUser.name.slice(0, 1).toUpperCase()}
                 </span>
                 <span className="hidden max-w-28 truncate sm:inline">
                   {sessionUser.name}
@@ -272,13 +273,13 @@ export default function Navbar() {
 
       {isSignOutOpen && (
         <div className="fixed inset-0 z-[60] grid place-items-center bg-black/35 px-6 backdrop-blur-sm" role="presentation">
-          <section className="w-full max-w-sm rounded-2xl bg-white p-7 shadow-2xl ring-1 ring-black/5" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
-            <span className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-red-50 text-primary" aria-hidden="true"><SignOut size={24} weight="bold" /></span>
+          <section className="w-full max-w-sm rounded-3xl bg-white p-7 shadow-2xl ring-1 ring-black/5" role="alertdialog" aria-modal="true" aria-labelledby="landing-signout-title">
+            <span className="mb-5 grid h-16 w-16 place-items-center rounded-3xl bg-[#fff1ef] text-primary" aria-hidden="true"><SignOut size={30} weight="bold" /></span>
             <h2 id="landing-signout-title" className="text-2xl font-extrabold tracking-tight text-foreground">Keluar dari akun?</h2>
             <p className="mt-2 text-sm leading-6 text-gray-500">Session di perangkat ini akan ditutup.</p>
             <div className="mt-6 flex justify-end gap-2">
-              <button type="button" onClick={() => setIsSignOutOpen(false)} className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
-              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
+              <button type="button" onClick={() => setIsSignOutOpen(false)} className="rounded-full border border-gray-200 px-4 py-2 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50">Batal</button>
+              <button type="button" disabled={isSigningOut} onClick={() => void handleSignOut()} className="rounded-full bg-primary px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-700 disabled:opacity-60">{isSigningOut ? "Keluar..." : "Keluar"}</button>
             </div>
           </section>
         </div>
