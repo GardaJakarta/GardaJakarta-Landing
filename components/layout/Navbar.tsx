@@ -149,7 +149,7 @@ export default function Navbar() {
               {isAccountOpen && (
                 <div className="absolute right-0 top-[calc(100%+0.75rem)] z-50 min-w-52 rounded-2xl bg-white p-2 text-foreground shadow-xl ring-1 ring-black/5">
                   <p className="px-3 py-2 text-xs font-semibold uppercase tracking-wider text-gray-400">Akun aktif</p>
-                  <a href="https://app.gardajakarta.my.id/profile" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Profile</a>
+                  <a href="https://app.gardajakarta.my.id/profile" className="flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary"><User size={18} weight="bold" aria-hidden="true" />Profile</a>
                   <a href="https://app.gardajakarta.my.id/dashboard" className="block rounded-xl px-3 py-2 text-sm font-semibold transition-colors hover:bg-orange-50 hover:text-primary">Dashboard {sessionUser.role === "warga" ? "Warga" : sessionUser.role === "polisi" ? "Polisi" : "Admin"}</a>
                   <button type="button" onClick={() => { setIsAccountOpen(false); setIsSignOutOpen(true); }} className="mt-2 block w-full rounded-full bg-primary px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-red-700">Keluar</button>
                 </div>
@@ -248,7 +248,7 @@ export default function Navbar() {
                   </span>
                   <span className="min-w-0"><strong className="block truncate text-sm font-bold text-gray-900">{sessionUser.name}</strong><small className="mt-0.5 block truncate text-xs text-gray-400">{sessionUser.email}</small></span>
                 </div>
-                <a href="https://app.gardajakarta.my.id/profile" onClick={() => setIsOpen(false)} className="rounded-xl px-3 py-3 text-sm font-semibold text-gray-700 hover:bg-orange-50">Profile</a>
+                <a href="https://app.gardajakarta.my.id/profile" onClick={() => setIsOpen(false)} className="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-gray-700 transition-colors hover:bg-orange-50 hover:text-[#FF3E17]"><User size={18} weight="bold" aria-hidden="true" />Profile</a>
                 <a
                   href="https://app.gardajakarta.my.id/dashboard"
                   onClick={() => setIsOpen(false)}
