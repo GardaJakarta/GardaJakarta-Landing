@@ -66,6 +66,33 @@ npx tsc --noEmit
 npm run build
 ```
 
+## Repository dan aplikasi terkait
+
+Repository bersifat publik (diperiksa 8 November 2026). Landing menggunakan branch utama `master`.
+
+| Bagian | Repository | Akses aplikasi |
+| --- | --- | --- |
+| Landing Next.js | [GardaJakarta-Landing](https://github.com/GardaJakarta/GardaJakarta-Landing) | [gardajakarta.my.id](https://gardajakarta.my.id) |
+| Aplikasi React | [GardaJakarta-FE](https://github.com/GardaJakarta/GardaJakarta-FE) | [Peta publik](https://app.gardajakarta.my.id/map) |
+| API Express | [GardaJakarta-BE](https://github.com/GardaJakarta/GardaJakarta-BE) | [Swagger](https://api.gardajakarta.my.id/api/docs) |
+
+Untuk menjalankan aplikasi laporan, API, dan PostgreSQL melalui Docker, ikuti [quick start Compose backend](https://github.com/GardaJakarta/GardaJakarta-BE#quick-start-dengan-docker). Landing ini dijalankan terpisah melalui Next.js; tidak termasuk Compose tersebut.
+
+## Progress
+
+Status dokumentasi: **8 November 2026**. Tabel ini menjelaskan implementasi yang tersedia, bukan klaim bahwa seluruh skenario produksi sudah diuji.
+
+| Area | Status | Bukti |
+| --- | --- | --- |
+| Pengenalan produk dan alur kontribusi | Tersedia | Hero, About Us, How It Works dalam `components/sections` |
+| Navigasi desktop/mobile | Tersedia | `components/layout` |
+| Animasi dan reduced motion | Tersedia | `components/motion` |
+| Form bantuan | UI tersedia | Pengiriman ke API belum terintegrasi |
+| Dashboard/peta/laporan | Repository terpisah | Lihat README frontend dan backend |
+| Evaluasi produk | Berjalan | Perbaikan berdasarkan pengujian pengguna dan rubrik |
+
+Tujuan Garda Jakarta adalah memudahkan warga mengenali kondisi lingkungan, menyampaikan laporan dengan lokasi, dan memantau progres penanganan. Visual/data contoh untuk pengembangan tidak menggantikan informasi kriminal resmi.
+
 ## Catatan Implementasi
 
 - Smooth scroll hanya diaktifkan ketika browser tidak meminta pengurangan gerak.
