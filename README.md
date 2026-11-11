@@ -47,6 +47,8 @@ Landing page ini memperkenalkan misi Garda Jakarta, prinsip produk, alur kontrib
 ### Instalasi
 
 ```bash
+git clone https://github.com/GardaJakarta/GardaJakarta-Landing.git
+cd GardaJakarta-Landing
 npm ci
 ```
 
